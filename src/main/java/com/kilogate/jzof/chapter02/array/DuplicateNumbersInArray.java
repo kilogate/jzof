@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * 数组中重复的数字
  * <p>
- * 长度为 n 的数组里的所有数字都在 0 ~ n-1 的范围内，判断数组中是否有重复的数字
+ * 长度为 n 的数组里，所有数字都在 0 ~ n-1 的范围内，判断数组中是否有重复的数字
  *
  * @author fengquanwei
  * @create 2020/2/12 下午11:10
@@ -24,6 +24,7 @@ public class DuplicateNumbersInArray {
 
         for (int i = 0; i < length; i++) {
             if (numbers[i] >= length || numbers[i] < 0) {
+                // 非法参数直接返回false
                 return false;
             }
         }
