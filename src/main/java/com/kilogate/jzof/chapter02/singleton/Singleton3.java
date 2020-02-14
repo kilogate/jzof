@@ -4,7 +4,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 线程安全的懒汉模式
+ * 线程安全的懒汉模式（Double Check）
  * <p>
  * 优点：懒加载启动快，资源占用小，使用时才实例化，性能好。
  * 缺点：实现复杂。
