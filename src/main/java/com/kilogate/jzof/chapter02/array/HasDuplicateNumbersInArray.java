@@ -51,10 +51,10 @@ public class HasDuplicateNumbersInArray {
         int[] numbers4 = {1, 3, 5, 0, 2, 4};
         int[] numbers5 = {1, 3, 5, 0, 2, 3};
 
-        System.out.println(String.format("%s hasDuplicateNumbers: %s", Arrays.toString(numbers1), hasDuplicateNumbers(numbers1)));
-        System.out.println(String.format("%s hasDuplicateNumbers: %s", Arrays.toString(numbers2), hasDuplicateNumbers(numbers2)));
-        System.out.println(String.format("%s hasDuplicateNumbers: %s", Arrays.toString(numbers3), hasDuplicateNumbers(numbers3)));
-        System.out.println(String.format("%s hasDuplicateNumbers: %s", Arrays.toString(numbers4), hasDuplicateNumbers(numbers4)));
-        System.out.println(String.format("%s hasDuplicateNumbers: %s", Arrays.toString(numbers5), hasDuplicateNumbers(numbers5)));
+        System.out.println(String.format("%s hasDuplicateNumbers: %s", Arrays.toString(numbers1), HasDuplicateNumbersInArray.hasDuplicateNumbers(numbers1)));
+        System.out.println(String.format("%s hasDuplicateNumbers: %s", Arrays.toString(numbers2), HasDuplicateNumbersInArray.hasDuplicateNumbers(numbers2)));
+        System.out.println(String.format("%s hasDuplicateNumbers: %s", Arrays.toString(numbers3), HasDuplicateNumbersInArray.hasDuplicateNumbers(numbers3)));
+        System.out.println(String.format("%s hasDuplicateNumbers: %s", Arrays.toString(numbers4), HasDuplicateNumbersInArray.hasDuplicateNumbers(numbers4)));
+        System.out.println(String.format("%s hasDuplicateNumbers: %s", Arrays.toString(numbers5), HasDuplicateNumbersInArray.hasDuplicateNumbers(numbers5)));
     }
 }
