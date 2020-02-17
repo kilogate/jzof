@@ -3,14 +3,14 @@ package com.kilogate.jzof.chapter02.array;
 import java.util.Arrays;
 
 /**
- * 数组中重复的数字
+ * 判断数组中是否有重复的数字
  * <p>
  * 在一个长度为n的数组里，所有的数字都在 0 ~ n-1 的范围内，判断数组中是否有重复的数字。
  *
  * @author fengquanwei
  * @create 2020/2/12 下午11:10
  **/
-public class DuplicateNumbersInArray {
+public class HasDuplicateNumbersInArray {
     public static boolean hasDuplicateNumbers(int[] numbers) {
         if (numbers == null) {
             return false;
