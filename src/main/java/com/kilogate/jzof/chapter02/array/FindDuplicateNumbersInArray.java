@@ -64,7 +64,8 @@ public class FindDuplicateNumbersInArray {
         int right = length - 1;
 
         while (left <= right) {
-            int mid = (left + right) / 2;
+            // int mid = (left + right) / 2;
+            int mid = (left + right) >> 1;
 
             if (getCountOfRange(numbers, left, mid) > (mid - left + 1)) {
                 right = mid;
