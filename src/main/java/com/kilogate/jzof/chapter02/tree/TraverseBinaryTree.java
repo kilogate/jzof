@@ -1,6 +1,7 @@
 package com.kilogate.jzof.chapter02.tree;
 
 import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -141,7 +142,7 @@ public class TraverseBinaryTree {
             return;
         }
 
-        LinkedList<Node> list = new LinkedList<>();
+        Queue<Node> list = new LinkedList<>();
         list.add(node);
 
         while (!list.isEmpty()) {

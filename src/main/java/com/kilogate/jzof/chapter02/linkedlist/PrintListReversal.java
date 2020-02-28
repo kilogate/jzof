@@ -1,7 +1,6 @@
 package com.kilogate.jzof.chapter02.linkedlist;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Stack;
 
 /**
  * 从尾到头打印链表
@@ -31,15 +30,15 @@ public class PrintListReversal {
             return;
         }
 
-        List<Integer> datas = new ArrayList<>();
+        Stack<Integer> stack = new Stack<>();
 
         while (node != null) {
-            datas.add(node.getData());
+            stack.push(node.getData());
             node = node.getNext();
         }
 
-        for (int i = datas.size() - 1; i >= 0; i--) {
-            System.out.print(datas.get(i) + "\t");
+        while (!stack.isEmpty()) {
+            System.out.print(stack.pop() + "\t");
         }
     }
 
