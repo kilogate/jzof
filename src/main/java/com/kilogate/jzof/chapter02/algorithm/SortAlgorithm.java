@@ -97,8 +97,32 @@ public class SortAlgorithm {
     }
 
     /**
-     * 四、希尔排序
+     * 四、希尔排序（一种插入排序，又称缩小增量排序）
      */
+    public static void shellSort(int[] a) {
+        if (a == null || a.length <= 1) {
+            return;
+        }
+
+        int n = a.length;
+        int gap = n / 2;
+
+        while (gap > 0) {
+            for (int i = gap; i < n; i++) {
+                int current = a[i];
+                int preIndex = i - gap;
+
+                while (preIndex >= 0 && a[preIndex] > current) {
+                    a[preIndex + gap] = a[preIndex];
+                    preIndex -= gap;
+                }
+
+                a[preIndex + gap] = current;
+            }
+
+            gap /= 2;
+        }
+    }
 
     /**
      * 五、归并排序
@@ -125,9 +149,10 @@ public class SortAlgorithm {
      */
 
     public static void main(String[] args) {
-        int[] a = {5, 4, 3, 2, 1};
+//        int[] a = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+        int[] a = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 
-        insertionSort(a);
+        shellSort(a);
         System.out.println(Arrays.toString(a));
     }
 }
