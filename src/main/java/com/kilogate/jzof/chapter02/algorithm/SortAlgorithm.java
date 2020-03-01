@@ -127,6 +127,53 @@ public class SortAlgorithm {
     /**
      * 五、归并排序
      */
+    public static int[] mergeSort(int[] a) {
+        if (a == null || a.length <= 1) {
+            return a;
+        }
+
+        int n = a.length;
+        int mid = n / 2;
+
+        int[] left = Arrays.copyOfRange(a, 0, mid);
+        int[] right = Arrays.copyOfRange(a, mid, n);
+
+        return doMergeSort(mergeSort(left), mergeSort(right));
+    }
+
+    private static int[] doMergeSort(int[] left, int[] right) {
+        int[] result = new int[left.length + right.length];
+
+        int leftIndex = 0;
+        int rightIndex = 0;
+        int resultIndex = 0;
+
+        while (leftIndex < left.length && rightIndex < right.length) {
+            if (left[leftIndex] <= right[resultIndex]) {
+                result[resultIndex] = left[leftIndex];
+                resultIndex++;
+                leftIndex++;
+            } else {
+                result[resultIndex] = right[rightIndex];
+                resultIndex++;
+                rightIndex++;
+            }
+        }
+
+        while (leftIndex < left.length) {
+            result[resultIndex] = left[leftIndex];
+            resultIndex++;
+            leftIndex++;
+        }
+
+        while (rightIndex < right.length) {
+            result[resultIndex] = right[rightIndex];
+            resultIndex++;
+            rightIndex++;
+        }
+
+        return result;
+    }
 
     /**
      * 六、快速排序
@@ -149,10 +196,9 @@ public class SortAlgorithm {
      */
 
     public static void main(String[] args) {
-//        int[] a = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
-        int[] a = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        int[] a = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+//        int[] a = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 
-        shellSort(a);
-        System.out.println(Arrays.toString(a));
+        System.out.println(Arrays.toString(mergeSort(a)));
     }
 }
