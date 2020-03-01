@@ -44,7 +44,7 @@ public class SortAlgorithm {
      * 二、选择排序
      */
     public static void selectionSort(int[] a) {
-        if (a == null || a.length == 1) {
+        if (a == null || a.length <= 1) {
             return;
         }
 
@@ -53,20 +53,20 @@ public class SortAlgorithm {
         // 每一趟选出一个最小元素到头部，需要 n-1 趟
         for (int i = 0; i < n - 1; i++) {
             // 最小元素的下标
-            int minElementIndex = i;
+            int minIndex = i;
 
             // 从未排序的头部元素到尾部元素中选出最小元素
             for (int j = i + 1; j < n; j++) {
-                if (a[j] < a[minElementIndex]) {
-                    minElementIndex = j;
+                if (a[j] < a[minIndex]) {
+                    minIndex = j;
                 }
             }
 
             // 与未排序的头部元素交互
-            if (minElementIndex != i) {
+            if (minIndex != i) {
                 int temp = a[i];
-                a[i] = a[minElementIndex];
-                a[minElementIndex] = temp;
+                a[i] = a[minIndex];
+                a[minIndex] = temp;
             }
         }
     }
@@ -74,6 +74,27 @@ public class SortAlgorithm {
     /**
      * 三、插入排序
      */
+    public static void insertionSort(int[] a) {
+        if (a == null || a.length <= 1) {
+            return;
+        }
+
+        int n = a.length;
+
+        // 依次插入下一个未排序元素
+        for (int i = 0; i < n - 1; i++) {
+            // 当前未排序元素
+            int current = a[i + 1];
+
+            int preIndex = i;
+            while (preIndex >= 0 && a[preIndex] > current) {
+                a[preIndex + 1] = a[preIndex];
+                preIndex--;
+            }
+
+            a[preIndex + 1] = current;
+        }
+    }
 
     /**
      * 四、希尔排序
@@ -106,7 +127,7 @@ public class SortAlgorithm {
     public static void main(String[] args) {
         int[] a = {5, 4, 3, 2, 1};
 
-        selectionSort(a);
+        insertionSort(a);
         System.out.println(Arrays.toString(a));
     }
 }
