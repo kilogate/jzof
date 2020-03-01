@@ -10,7 +10,7 @@ import java.util.Arrays;
  **/
 public class SortAlgorithm {
     /**
-     * 冒泡排序
+     * 一、冒泡排序
      */
     public static void bubbleSort(int[] a) {
         if (a == null || a.length <= 1) {
@@ -40,10 +40,73 @@ public class SortAlgorithm {
         }
     }
 
+    /**
+     * 二、选择排序
+     */
+    public static void selectionSort(int[] a) {
+        if (a == null || a.length == 1) {
+            return;
+        }
+
+        int n = a.length;
+
+        // 每一趟选出一个最小元素到头部，需要 n-1 趟
+        for (int i = 0; i < n - 1; i++) {
+            // 最小元素的下标
+            int minElementIndex = i;
+
+            // 从未排序的头部元素到尾部元素中选出最小元素
+            for (int j = i + 1; j < n; j++) {
+                if (a[j] < a[minElementIndex]) {
+                    minElementIndex = j;
+                }
+            }
+
+            // 与未排序的头部元素交互
+            if (minElementIndex != i) {
+                int temp = a[i];
+                a[i] = a[minElementIndex];
+                a[minElementIndex] = temp;
+            }
+        }
+    }
+
+    /**
+     * 三、插入排序
+     */
+
+    /**
+     * 四、希尔排序
+     */
+
+    /**
+     * 五、归并排序
+     */
+
+    /**
+     * 六、快速排序
+     */
+
+    /**
+     * 七、堆排序
+     */
+
+    /**
+     * 八、计数排序
+     */
+
+    /**
+     * 九、桶排序
+     */
+
+    /**
+     * 十、基数排序
+     */
+
     public static void main(String[] args) {
         int[] a = {5, 4, 3, 2, 1};
 
-        bubbleSort(a);
+        selectionSort(a);
         System.out.println(Arrays.toString(a));
     }
 }
