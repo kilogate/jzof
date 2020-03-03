@@ -178,6 +178,50 @@ public class SortAlgorithm {
     /**
      * 六、快速排序
      */
+    public static void quickSort(int[] a) {
+        if (a == null || a.length <= 1) {
+            return;
+        }
+
+        doQuickSort(a, 0, a.length - 1);
+    }
+
+    private static void doQuickSort(int[] a, int left, int right) {
+        if (a == null || a.length <= 1 || left >= right) {
+            return;
+        }
+
+        // 基准元素
+        int p = a[left];
+
+        int l = left;
+        int r = right;
+
+        while (l < r) {
+            // 从右向左找小于基准元素的元素下标
+            while (l < r && a[r] >= p) {
+                r--;
+            }
+
+            a[l] = a[r];
+
+            // 从左向右找大于基准元素的元素下标
+            while (l < r && a[l] <= p) {
+                l++;
+            }
+
+            a[r] = a[l];
+        }
+
+        // 基准元素归位
+        a[l] = p;
+
+        // 递归排序基准元素左侧序列
+        doQuickSort(a, left, l - 1);
+
+        // 递归排序基准元素右侧序列
+        doQuickSort(a, r + 1, right);
+    }
 
     /**
      * 七、堆排序
@@ -196,9 +240,10 @@ public class SortAlgorithm {
      */
 
     public static void main(String[] args) {
-        int[] a = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+        int[] a = {5, 1, 7, 3, 1, 6, 9, 4};
 //        int[] a = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 
-        System.out.println(Arrays.toString(mergeSort(a)));
+        quickSort(a);
+        System.out.println(Arrays.toString(a));
     }
 }
