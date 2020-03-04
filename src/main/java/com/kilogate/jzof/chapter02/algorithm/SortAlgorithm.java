@@ -17,17 +17,15 @@ public class SortAlgorithm {
             return;
         }
 
-        int n = a.length;
-
         // 未发生交换时表示已排序完成
         boolean swap = true;
 
         // 每一趟冒出一个最大元素到尾部，需要 n-1 趟
-        for (int i = 0; swap && i < n - 1; i++) {
+        for (int i = 0; swap && i < a.length - 1; i++) {
             swap = false;
 
             // 从头冒到未排序的尾部的前一个元素
-            for (int j = 0; j < n - i - 1; j++) {
+            for (int j = 0; j < a.length - i - 1; j++) {
                 // 当前元素要小于后一个元素，否则交换位置
                 if (a[j] > a[j + 1]) {
                     int temp = a[j];
@@ -48,15 +46,13 @@ public class SortAlgorithm {
             return;
         }
 
-        int n = a.length;
-
         // 每一趟选出一个最小元素到头部，需要 n-1 趟
-        for (int i = 0; i < n - 1; i++) {
+        for (int i = 0; i < a.length - 1; i++) {
             // 最小元素的下标
             int minIndex = i;
 
             // 从未排序的头部元素到尾部元素中选出最小元素
-            for (int j = i + 1; j < n; j++) {
+            for (int j = i + 1; j < a.length; j++) {
                 if (a[j] < a[minIndex]) {
                     minIndex = j;
                 }
@@ -79,10 +75,8 @@ public class SortAlgorithm {
             return;
         }
 
-        int n = a.length;
-
         // 依次插入下一个未排序元素
-        for (int i = 0; i < n - 1; i++) {
+        for (int i = 0; i < a.length - 1; i++) {
             // 当前未排序元素
             int current = a[i + 1];
 
@@ -104,11 +98,10 @@ public class SortAlgorithm {
             return;
         }
 
-        int n = a.length;
-        int gap = n / 2;
+        int gap = a.length / 2;
 
         while (gap > 0) {
-            for (int i = gap; i < n; i++) {
+            for (int i = gap; i < a.length; i++) {
                 int current = a[i];
                 int preIndex = i - gap;
 
@@ -132,11 +125,10 @@ public class SortAlgorithm {
             return a;
         }
 
-        int n = a.length;
-        int mid = n / 2;
+        int mid = a.length / 2;
 
         int[] left = Arrays.copyOfRange(a, 0, mid);
-        int[] right = Arrays.copyOfRange(a, mid, n);
+        int[] right = Arrays.copyOfRange(a, mid, a.length);
 
         return doMergeSort(mergeSort(left), mergeSort(right));
     }
@@ -226,6 +218,83 @@ public class SortAlgorithm {
     /**
      * 七、堆排序
      */
+    public static void heapSort(int[] a) {
+        if (a == null || a.length <= 1) {
+            return;
+        }
+
+        int length = a.length;
+
+        // 构造最大堆
+        buildMaxHeap(a);
+
+        while (length > 1) {
+            // 交换收尾元素
+            int temp = a[0];
+            a[0] = a[length - 1];
+            a[length - 1] = temp;
+
+            // 未排序数组长度减一
+            length--;
+
+            // 调整首元素使堆满足最大堆
+            adjustMaxHeap(a, 0, length);
+        }
+    }
+
+    private static void buildMaxHeap(int[] a) {
+        if (a == null || a.length <= 1) {
+            return;
+        }
+
+        // 自底向上自右向左构造最大堆
+        for (int i = a.length - 1; i >= 0; i--) {
+            adjustMaxHeap(a, i, a.length);
+        }
+    }
+
+    /**
+     * 调整元素使堆满足最大堆
+     */
+    private static void adjustMaxHeap(int[] a, int i, int length) {
+        if (a == null || a.length <= 1) {
+            return;
+        }
+
+        if (length < 1 || length > a.length) {
+            return;
+        }
+
+        if (i < 0 || i >= length) {
+            return;
+        }
+
+
+        int max = i;
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
+
+        // 左子树元素更大？
+        if (left < length && a[left] > a[max]) {
+            max = left;
+        }
+
+        // 右子树元素更大？
+        if (right < length && a[right] > a[max]) {
+            max = right;
+        }
+
+        // 当前元素不是最大元素？
+        if (max != i) {
+            // 与最大元素交换位置
+            int temp = a[max];
+            a[max] = a[i];
+            a[i] = temp;
+
+            // 继续调整次大元素
+            adjustMaxHeap(a, max, length);
+        }
+    }
 
     /**
      * 八、计数排序
@@ -243,7 +312,7 @@ public class SortAlgorithm {
         int[] a = {5, 1, 7, 3, 1, 6, 9, 4};
 //        int[] a = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 
-        quickSort(a);
+        heapSort(a);
         System.out.println(Arrays.toString(a));
     }
 }
