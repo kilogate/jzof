@@ -332,7 +332,7 @@ public class SortAlgorithm {
         int i = 0;
         int b = 0;
 
-        while (i < array.length) {
+        while (i < array.length && b < bucket.length) {
             if (bucket[b] > 0) {
                 array[i] = b + min;
 
