@@ -302,6 +302,47 @@ public class SortAlgorithm {
     /**
      * 八、计数排序
      */
+    public static void countingSort(int[] array) {
+        if (array == null || array.length <= 1) {
+            return;
+        }
+
+        // 1 寻找最小值和最大值
+        int min = array[0];
+        int max = array[0];
+
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] < min) {
+                min = array[i];
+            }
+
+            if (array[i] > max) {
+                max = array[i];
+            }
+        }
+
+        // 2 填充桶位
+        int[] bucket = new int[max - min + 1];
+
+        for (int i = 0; i < array.length; i++) {
+            bucket[array[i] - min]++;
+        }
+
+        // 3 反向填充原数组
+        int i = 0;
+        int b = 0;
+
+        while (i < array.length) {
+            if (bucket[b] > 0) {
+                array[i] = b + min;
+
+                bucket[b]--;
+                i++;
+            } else {
+                b++;
+            }
+        }
+    }
 
     /**
      * 九、桶排序
@@ -312,10 +353,8 @@ public class SortAlgorithm {
      */
 
     public static void main(String[] args) {
-        int[] a = {5, 1, 7, 3, 1, 6, 9, 4};
-//        int[] a = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-
-        heapSort(a);
+        int[] a = {5, 1, 7, 3, 1, 6, 9, 3, 4, 5, 4, 4};
+        countingSort(a);
         System.out.println(Arrays.toString(a));
     }
 }
