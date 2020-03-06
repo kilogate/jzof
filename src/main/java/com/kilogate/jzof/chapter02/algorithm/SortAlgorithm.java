@@ -49,20 +49,20 @@ public class SortAlgorithm {
         // 每一趟选出一个最小元素到头部，需要 n-1 趟
         for (int i = 0; i < array.length - 1; i++) {
             // 最小元素的下标
-            int minIndex = i;
+            int indexOfMin = i;
 
             // 从未排序的头部元素到尾部元素中选出最小元素
             for (int j = i + 1; j < array.length; j++) {
-                if (array[j] < array[minIndex]) {
-                    minIndex = j;
+                if (array[j] < array[indexOfMin]) {
+                    indexOfMin = j;
                 }
             }
 
             // 与未排序的头部元素交互
-            if (minIndex != i) {
+            if (indexOfMin != i) {
                 int temp = array[i];
-                array[i] = array[minIndex];
-                array[minIndex] = temp;
+                array[i] = array[indexOfMin];
+                array[indexOfMin] = temp;
             }
         }
     }
@@ -80,6 +80,7 @@ public class SortAlgorithm {
             // 当前未排序元素
             int current = array[i + 1];
 
+            // 前一个元素的索引
             int preIndex = i;
             while (preIndex >= 0 && array[preIndex] > current) {
                 array[preIndex + 1] = array[preIndex];
@@ -125,10 +126,10 @@ public class SortAlgorithm {
             return array;
         }
 
-        int mid = array.length / 2;
+        int midIndex = array.length / 2;
 
-        int[] leftArray = Arrays.copyOfRange(array, 0, mid);
-        int[] rightArray = Arrays.copyOfRange(array, mid, array.length);
+        int[] leftArray = Arrays.copyOfRange(array, 0, midIndex);
+        int[] rightArray = Arrays.copyOfRange(array, midIndex, array.length);
 
         return doMergeSort(mergeSort(leftArray), mergeSort(rightArray));
     }
@@ -273,29 +274,29 @@ public class SortAlgorithm {
         }
 
 
-        int max = index;
-        int left = 2 * index + 1;
-        int right = 2 * index + 2;
+        int indexOfMax = index;
+        int indexOfLeftChild = 2 * index + 1;
+        int indexOfRightChild = 2 * index + 2;
 
         // 左子树元素更大？
-        if (left < length && array[left] > array[max]) {
-            max = left;
+        if (indexOfLeftChild < length && array[indexOfLeftChild] > array[indexOfMax]) {
+            indexOfMax = indexOfLeftChild;
         }
 
         // 右子树元素更大？
-        if (right < length && array[right] > array[max]) {
-            max = right;
+        if (indexOfRightChild < length && array[indexOfRightChild] > array[indexOfMax]) {
+            indexOfMax = indexOfRightChild;
         }
 
         // 当前元素不是最大元素？
-        if (max != index) {
+        if (indexOfMax != index) {
             // 与最大元素交换位置
-            int temp = array[max];
-            array[max] = array[index];
+            int temp = array[indexOfMax];
+            array[indexOfMax] = array[index];
             array[index] = temp;
 
             // 继续调整次大元素
-            adjustMaxHeap(array, max, length);
+            adjustMaxHeap(array, indexOfMax, length);
         }
     }
 
