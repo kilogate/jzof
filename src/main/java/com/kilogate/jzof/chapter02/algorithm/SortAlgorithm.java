@@ -1,6 +1,9 @@
 package com.kilogate.jzof.chapter02.algorithm;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * 常见排序算法
@@ -13,7 +16,7 @@ public class SortAlgorithm {
      * 一、冒泡排序
      */
     public static void bubbleSort(int[] array) {
-        if (array == null || array.length <= 1) {
+        if (array == null || array.length < 2) {
             return;
         }
 
@@ -42,7 +45,7 @@ public class SortAlgorithm {
      * 二、选择排序
      */
     public static void selectionSort(int[] array) {
-        if (array == null || array.length <= 1) {
+        if (array == null || array.length < 2) {
             return;
         }
 
@@ -71,7 +74,7 @@ public class SortAlgorithm {
      * 三、插入排序
      */
     public static void insertionSort(int[] array) {
-        if (array == null || array.length <= 1) {
+        if (array == null || array.length < 2) {
             return;
         }
 
@@ -95,7 +98,7 @@ public class SortAlgorithm {
      * 四、希尔排序（一种插入排序，又称缩小增量排序）
      */
     public static void shellSort(int[] array) {
-        if (array == null || array.length <= 1) {
+        if (array == null || array.length < 2) {
             return;
         }
 
@@ -122,7 +125,7 @@ public class SortAlgorithm {
      * 五、归并排序
      */
     public static int[] mergeSort(int[] array) {
-        if (array == null || array.length <= 1) {
+        if (array == null || array.length < 2) {
             return array;
         }
 
@@ -175,7 +178,7 @@ public class SortAlgorithm {
      * 六、快速排序
      */
     public static void quickSort(int[] array) {
-        if (array == null || array.length <= 1) {
+        if (array == null || array.length < 2) {
             return;
         }
 
@@ -183,7 +186,7 @@ public class SortAlgorithm {
     }
 
     private static void doQuickSort(int[] array, int minIndex, int maxIndex) {
-        if (array == null || array.length <= 1 || minIndex >= maxIndex) {
+        if (array == null || array.length < 2 || minIndex >= maxIndex) {
             return;
         }
 
@@ -223,7 +226,7 @@ public class SortAlgorithm {
      * 七、堆排序
      */
     public static void heapSort(int[] array) {
-        if (array == null || array.length <= 1) {
+        if (array == null || array.length < 2) {
             return;
         }
 
@@ -247,7 +250,7 @@ public class SortAlgorithm {
     }
 
     private static void buildMaxHeap(int[] array) {
-        if (array == null || array.length <= 1) {
+        if (array == null || array.length < 2) {
             return;
         }
 
@@ -261,7 +264,7 @@ public class SortAlgorithm {
      * 调整元素使堆满足最大堆
      */
     private static void adjustMaxHeap(int[] array, int index, int length) {
-        if (array == null || array.length <= 1) {
+        if (array == null || array.length < 2) {
             return;
         }
 
@@ -304,7 +307,7 @@ public class SortAlgorithm {
      * 八、计数排序
      */
     public static void countingSort(int[] array) {
-        if (array == null || array.length <= 1) {
+        if (array == null || array.length < 2) {
             return;
         }
 
@@ -348,14 +351,73 @@ public class SortAlgorithm {
     /**
      * 九、桶排序
      */
+    private static void bucketSort(int[] array) {
+        if (array == null || array.length < 2) {
+            return;
+        }
+
+        // 1 寻找最小值和最大值
+        int min = array[0];
+        int max = array[0];
+
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] < min) {
+                min = array[i];
+            }
+
+            if (array[i] > max) {
+                max = array[i];
+            }
+        }
+
+        if (min == max) {
+            return;
+        }
+
+        // 2 计算桶容量和桶数量
+        int elementCount = max - min + 1;
+        int bucketCapacity = (int) Math.sqrt(elementCount);
+        int bucketCount = (elementCount + bucketCapacity - 1) / bucketCapacity;
+
+        // 3 元素入桶
+        List<List<Integer>> buckets = new ArrayList<>();
+        for (int i = 0; i < bucketCount; i++) {
+            buckets.add(new ArrayList<>());
+        }
+
+        for (int i = 0; i < array.length; i++) {
+            int bucketIndex = (array[i] - min) / bucketCapacity;
+            buckets.get(bucketIndex).add(array[i]);
+        }
+
+        // 4 排序各个桶中的元素
+        for (List<Integer> bucket : buckets) {
+            if (bucket != null) {
+                bucket.sort(Comparator.naturalOrder());
+            }
+        }
+
+        // 5 反向填充原数组
+        int index = 0;
+        while (index < array.length) {
+            for (List<Integer> bucket : buckets) {
+                for (Integer element : bucket) {
+                    array[index++] = element;
+                }
+            }
+        }
+    }
 
     /**
      * 十、基数排序
      */
 
+    /**
+     * 测试
+     */
     public static void main(String[] args) {
-        int[] a = {5, 1, 7, 3, 1, 6, 9, 3, 4, 5, 4, 4};
-        countingSort(a);
+        int[] a = {5, 1, 7, 3, 1, 6, 9, 3, 0, 5, 4, 4, 8};
+        bucketSort(a);
         System.out.println(Arrays.toString(a));
     }
 }
