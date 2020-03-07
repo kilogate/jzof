@@ -236,7 +236,7 @@ public class SortAlgorithm {
         buildMaxHeap(array);
 
         while (length > 1) {
-            // 交换收尾元素
+            // 交换首尾元素
             int temp = array[0];
             array[0] = array[length - 1];
             array[length - 1] = temp;
@@ -327,7 +327,6 @@ public class SortAlgorithm {
 
         // 2 填充桶位
         int[] bucket = new int[max - min + 1];
-
         for (int i = 0; i < array.length; i++) {
             bucket[array[i] - min]++;
         }
