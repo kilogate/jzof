@@ -315,7 +315,7 @@ public class SortAlgorithm {
         int min = array[0];
         int max = array[0];
 
-        for (int i = 0; i < array.length; i++) {
+        for (int i = 1; i < array.length; i++) {
             if (array[i] < min) {
                 min = array[i];
             }
@@ -360,7 +360,7 @@ public class SortAlgorithm {
         int min = array[0];
         int max = array[0];
 
-        for (int i = 0; i < array.length; i++) {
+        for (int i = 1; i < array.length; i++) {
             if (array[i] < min) {
                 min = array[i];
             }
@@ -411,13 +411,60 @@ public class SortAlgorithm {
     /**
      * 十、基数排序
      */
+    public static void radixSort(int[] array) {
+        if (array == null || array.length < 2) {
+            return;
+        }
+
+        // 1 寻找最大值
+        int max = array[0];
+
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] > max) {
+                max = array[i];
+            }
+        }
+
+        // 2 计算最大值的位数
+        int maxDigit = 0;
+        while (max != 0) {
+            max /= 10;
+            maxDigit++;
+        }
+
+        // 3 准备桶
+        List<List<Integer>> buckets = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            buckets.add(new ArrayList<>());
+        }
+
+        // 4 从最低位到最高位分别排序
+        int mod = 10;
+        int div = 1;
+        for (int i = 0; i < maxDigit; i++, mod *= 10, div *= 10) {
+            // 将原数组中的元素分别放到对应的桶中
+            for (int j = 0; j < array.length; j++) {
+                int num = (array[j] % mod) / div;
+                buckets.get(num).add(array[j]);
+            }
+
+            // 将桶中的元素反向填充到原数组中
+            int index = 0;
+            for (int j = 0; j < buckets.size(); j++) {
+                for (int k = 0; k < buckets.get(j).size(); k++) {
+                    array[index++] = buckets.get(j).get(k);
+                }
+                buckets.get(j).clear();
+            }
+        }
+    }
 
     /**
      * 测试
      */
     public static void main(String[] args) {
-        int[] a = {5, 1, 7, 3, 1, 6, 9, 3, 0, 5, 4, 4, 8};
-        bucketSort(a);
+        int[] a = {8, 2, 32, 43, 12, 7, 89, 0, 98, 45, 67};
+        radixSort(a);
         System.out.println(Arrays.toString(a));
     }
 }
