@@ -25,9 +25,15 @@ public class CutRope {
             return 1;
         }
 
+        // 最优值
         int[] products = new int[n + 1];
         products[0] = 1;
         products[1] = 1;
+
+        // 最优解的第一刀
+        int[] solutions = new int[n + 1];
+        solutions[0] = 1;
+        solutions[1] = 1;
 
         // 自底向上求解
         for (int i = 2; i <= n; i++) {
@@ -36,15 +42,45 @@ public class CutRope {
                 int product = j * products[i - j];
                 if (product > max) {
                     max = product;
+                    solutions[i] = j;
                 }
             }
             products[i] = max;
         }
 
+        // 打印最优值和最优解
+        for (int i = 0; i < products.length; i++) {
+            String function = String.format("f(%s)=%s", i, products[i]);
+            String solution = getSolution(i, solutions);
+            System.out.println(String.format("%s【%s】", function, solution));
+        }
+
         return products[n];
     }
 
+    /**
+     * 获取最优解
+     */
+    private static String getSolution(int n, int[] solutions) {
+        if (n == 0) {
+            return "";
+        }
+
+        if (n == 1) {
+            return "1";
+        }
+
+        int first = solutions[n];
+        int rest = n - first;
+
+        if (rest == 0) {
+            return String.valueOf(first);
+        }
+
+        return String.format("%s * %s", first, getSolution(rest, solutions));
+    }
+
     public static void main(String[] args) {
-        System.out.println(calculateMaxProduct(8));
+        calculateMaxProduct(20);
     }
 }
