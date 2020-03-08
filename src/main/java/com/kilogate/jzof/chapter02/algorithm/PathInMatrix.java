@@ -1,7 +1,7 @@
 package com.kilogate.jzof.chapter02.algorithm;
 
 /**
- * 矩阵中的路径（回溯法）
+ * 矩阵中的路径
  * <p>
  * 请设计一个函数，用来判断在一个矩阵中是否存在一条包含某字符串所有字符的路径。
  * 路径可以从矩阵中的任意一格开始，每一步可以在矩阵中向上下左右移动一格。
@@ -11,6 +11,9 @@ package com.kilogate.jzof.chapter02.algorithm;
  * @create 2020/3/8 下午8:39
  **/
 public class PathInMatrix {
+    /**
+     * 判断矩阵中是否有目标路径（回溯法）
+     */
     public static boolean hasPathInMatrix(char[] matrix, int rows, int columns, String path) {
         // 空路径肯定有
         if (path == null || path.length() == 0) {
