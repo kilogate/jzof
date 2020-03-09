@@ -16,7 +16,7 @@ public class CutRope {
      * f(1) = 1
      * f(n) = max(i*f(n-i)) (0<i<=n)
      */
-    public static int calculateMaxProduct(int n) {
+    public static int calculateMaxProductByDP(int n) {
         if (n <= 0) {
             return 0;
         }
@@ -80,7 +80,45 @@ public class CutRope {
         return String.format("%s * %s", first, getSolution(rest, solutions));
     }
 
+    /**
+     * 求剪绳子方案的最大乘积（贪婪算法）
+     * 贪婪选择：n>=5时尽可能多的剪长度为3的绳子，n=4时把绳子剪成两段长度为2的绳子。
+     */
+    public static int calculateMaxProductByGreedy(int n) {
+        if (n <= 0) {
+            return 0;
+        }
+
+        if (n == 1) {
+            return 1;
+        }
+
+        if (n == 2) {
+            return 2;
+        }
+
+        if (n == 3) {
+            return 3;
+        }
+
+        // n>=5时尽可能多的剪长度为3的绳子
+        int timesOf3 = n / 3;
+
+        // n=4时把绳子剪成两段长度为2的绳子
+        if (n - timesOf3 * 3 == 1) {
+            timesOf3--;
+        }
+
+        int timesOf2 = (n - timesOf3 * 3) / 2;
+
+        // 返回最优值
+        return (int) (Math.pow(3, timesOf3) * Math.pow(2, timesOf2));
+    }
+
     public static void main(String[] args) {
-        calculateMaxProduct(20);
+        // 动态规划，时间复杂度：O(n^2)，空间复杂度：O(n)
+        calculateMaxProductByDP(10);
+        // 贪婪算法：时间复杂度：O(1)，空间负责度：O(1)
+        System.out.println(calculateMaxProductByGreedy(10));
     }
 }
